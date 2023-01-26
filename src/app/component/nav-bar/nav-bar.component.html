@@ -1,0 +1,25 @@
+<header class="navbar">
+  <div class="menu hide">
+    <img src="" alt="Menú hamburguesa">
+  </div>
+  <div class="logo">
+    <!-- <img src="" alt="Logo"> -->
+    <p><a href="/">Ex Store</a></p>
+  </div>
+  <div class="sections-container">
+    <ul class="section-wrapper">
+      <li class="nav-item"><a href="#">Todo</a></li>
+      <li class="nav-item"><a href="#">Ropa</a></li>
+      <li class="nav-item"><a href="#">Electronica</a></li>
+      <li class="nav-item"><a href="#">Supermercado</a></li>
+    </ul>
+  </div>
+  <div class="secondary-menu">
+    <p class="email">Jorge</p>
+    <p class="current-date">{{ currentDate | date:'yyyy/MM/dd hh:mm:ss' }}</p>
+    <div class="cart">
+      <!-- <img src="" alt="Carrito"> -->
+      <p>Carrito ({{ quantityProducts }})</p>
+    </div>
+  </div>
+</header>

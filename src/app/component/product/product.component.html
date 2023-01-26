@@ -1,0 +1,12 @@
+<div class="product-card" [attr.data-id]="product.id">
+  <header class="card-head">
+    <span class="title">{{ product.name }}</span>
+  </header>
+  <section class="card-body">
+    <img [src]="product.imageUrl" [alt]="product.name" height="200px">
+    <!-- <p class="price">{{ product.price.toLocaleString('es') }}</p> -->
+    <p class="price">{{ product.price | currency:'COP':'code':'2.2-4' }}</p>
+    <p class="provider"><strong>Proveedor:</strong> {{ product.provider | titlecase }}</p>
+    <button (click)="addToCart()">Agregar al carrito</button>
+  </section>
+</div>

@@ -1,18 +1,37 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ProductComponent } from './component/product/product.component';
+import { ProductListComponent } from './component/product-list/product-list.component';
+import { NavBarComponent } from './component/nav-bar/nav-bar.component';
+import { CartComponent } from './component/cart/cart.component';
+import { CartItemComponent } from './component/cart-item/cart-item.component';
+import { ReversePipe } from './pipe/reverse.pipe';
+import { SnakeCasePipe } from './pipe/snake-case.pipe';
+import { SelectElementDirective } from './directive/select-element.directive';
+import { CartService } from './service/cart.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProductComponent,
+    ProductListComponent,
+    NavBarComponent,
+    CartComponent,
+    CartItemComponent,
+    ReversePipe,
+    SnakeCasePipe,
+    SelectElementDirective
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

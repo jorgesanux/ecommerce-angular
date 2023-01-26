@@ -1,0 +1,4 @@
+<article class="products-container">
+  <app-cart></app-cart>
+  <app-product *ngFor="let product of products; index as i" [product]="product" (toCart)="addProductToCart($event)" appSelectElement></app-product>
+</article>
