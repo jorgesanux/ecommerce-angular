@@ -12,6 +12,15 @@ import { NavBarService } from 'src/app/service/nav-bar.service';
 export class NavBarComponent implements OnInit, OnDestroy {
   currentDate: Date = new Date();
   quantityProducts = 0;
+  categories = [
+    "Todo",
+    "Accesorios",
+    "Zapatos",
+    "Camisas",
+    "Relojes",
+    "Saco",
+    "Perfumes"
+  ];
 
   private updateClockSubscription!: Subscription;
   private cartQuantitySubscription!: Subscription;
