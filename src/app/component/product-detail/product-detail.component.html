@@ -1,0 +1,7 @@
+<section class="product-detail">
+  <button (click)="closeDetail()">Cerrar</button>
+  <p><strong>{{ product.name }}</strong></p>
+  <p><strong>{{ product.price | currency }}</strong></p>
+  <p><img [src]="product.imageUrl" [alt]="product.name"></p>
+  <p><strong>{{ product.provider }}</strong></p>
+</section>

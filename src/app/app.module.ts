@@ -13,6 +13,7 @@ import { ReversePipe } from './pipe/reverse.pipe';
 import { SnakeCasePipe } from './pipe/snake-case.pipe';
 import { SelectElementDirective } from './directive/select-element.directive';
 import { CartService } from './service/cart.service';
+import { ProductDetailComponent } from './component/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CartService } from './service/cart.service';
     CartItemComponent,
     ReversePipe,
     SnakeCasePipe,
-    SelectElementDirective
+    SelectElementDirective,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,

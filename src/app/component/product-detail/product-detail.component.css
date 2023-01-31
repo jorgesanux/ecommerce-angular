@@ -1,0 +1,19 @@
+:host {
+  /* position: relative; */
+  /* width: 50%; */
+  display: block;
+  height: 100vh;
+  background-color: #fff;
+}
+
+.product-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+}
+
+.product-detail img {
+  width: 100%;
+}

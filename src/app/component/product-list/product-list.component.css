@@ -4,3 +4,9 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
+.product-detail__container{
+  position: fixed;
+  top: 60px;
+  left: 75%;
+}
