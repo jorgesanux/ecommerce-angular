@@ -7,7 +7,8 @@ export class MapperHelper {
       imageUrl: rawData["images"],
       name: rawData["title"],
       price: rawData["price"],
-      provider: rawData["category"]["name"]
+      provider: rawData["category"]["name"],
+      description: rawData["description"]
     }
   }
 }
