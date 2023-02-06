@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CartService } from 'src/app/service/cart.service';
 import { ProductListService } from 'src/app/service/product-list.service';
+import { ProductCreateDTO } from 'src/dto/product.dto';
 import { Product } from 'src/model/product.model';
 
 @Component({
@@ -47,5 +48,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
   closeProductDetail(): void {
     this.productSelectedForDetail = null;
     this.subscriptionDetailProduct.unsubscribe();
+  }
+
+  createProduct(): void {
+    const newProduct: ProductCreateDTO = {
+      categoryId: 5,
+      description: "Prueba creación de producto por POST",
+      images: [
+        "https://placeimg.com/640/480/any"
+      ],
+      price: 2000,
+      title: "Productos random"
+    };
+    this.productListService.createProduct(newProduct)
+      .subscribe((product: Product) => {
+        this.products.unshift(product);
+      });
   }
 }
