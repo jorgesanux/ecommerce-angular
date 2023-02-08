@@ -6,6 +6,7 @@
     [product]="product"
     (toCart)="addProductToCart($event)"
     (toDetail)="showProductDetail($event)"
+    (toDelete)="deleteProduct($event)"
     appSelectElement></app-product>
 </article>
 <article class="product-detail__container" *ngIf="productSelectedForDetail">

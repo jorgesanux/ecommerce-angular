@@ -72,4 +72,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     this.products[index] = product;
   }
+
+  deleteProduct(product: Product): void {
+    const index = this.products.findIndex(prod => prod.id === product.id);
+    if(index === -1) return ;
+
+    this.products.splice(index, 1);
+  }
 }

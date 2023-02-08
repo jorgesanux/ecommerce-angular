@@ -43,5 +43,7 @@ export class ProductService {
       );
   }
 
-
+  deleteProduct(id: string): Observable<boolean> {
+    return this.http.delete<boolean>(`${ProductService.API_URL}/${id}`);
+  }
 }
