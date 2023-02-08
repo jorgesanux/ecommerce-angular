@@ -5,7 +5,7 @@ import { Product } from 'src/model/product.model';
 import { MapperHelper } from '../helper/Mapper.helper';
 
 @Injectable()
-export class ProductListService {
+export class ProductService {
 
   private static API_URL = "https://young-sands-07814.herokuapp.com/api/products";
 
@@ -14,7 +14,7 @@ export class ProductListService {
   ) { }
 
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Record<string, any>[]>(ProductListService.API_URL+"?limit=10&offset=1")
+    return this.http.get<Record<string, any>[]>(ProductService.API_URL+"?limit=10&offset=1")
       .pipe(
         map((dataList: Record<string, any>[]) => {
           return dataList.map(MapperHelper.APIToProduct);
@@ -23,17 +23,25 @@ export class ProductListService {
   }
 
   getProductById<T>(id: T): Observable<Product> {
-    return this.http.get<Record<string, any>>(`${ProductListService.API_URL}/${id}`)
+    return this.http.get<Record<string, any>>(`${ProductService.API_URL}/${id}`)
       .pipe(
         map((data: Record<string, any>) => MapperHelper.APIToProduct(data))
       );
   }
 
   createProduct<T>(productDTO: T): Observable<Product> {
-    return  this.http.post(ProductListService.API_URL, productDTO)
+    return this.http.post(ProductService.API_URL, productDTO)
       .pipe(
         map((data: Record<string, any>) => MapperHelper.APIToProduct(data))
       );
   }
+
+  updateProduct<T>(id: string, productDTO: T): Observable<Product>{
+    return this.http.put<Record<string, any>>(`${ProductService.API_URL}/${id}`, productDTO)
+      .pipe(
+        map(MapperHelper.APIToProduct)
+      );
+  }
+
 
 }

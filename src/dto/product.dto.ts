@@ -5,3 +5,5 @@ export interface ProductCreateDTO {
   categoryId: number,
   images: string[]
 }
+
+export type ProductUpdateDTO = Partial<ProductCreateDTO>

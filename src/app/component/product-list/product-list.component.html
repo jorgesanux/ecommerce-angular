@@ -9,5 +9,9 @@
     appSelectElement></app-product>
 </article>
 <article class="product-detail__container" *ngIf="productSelectedForDetail">
-  <app-product-detail [product]="productSelectedForDetail" (toClose)="closeProductDetail()"></app-product-detail>
+  <app-product-detail
+    [product]="productSelectedForDetail"
+    (toUpdate)="updateProductListFromDetail($event)"
+    (toClose)="closeProductDetail()">
+  </app-product-detail>
 </article>

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CartService } from 'src/app/service/cart.service';
-import { ProductListService } from 'src/app/service/product-list.service';
+import { ProductService } from 'src/app/service/product-list.service';
 import { ProductCreateDTO } from 'src/dto/product.dto';
 import { Product } from 'src/model/product.model';
 
@@ -9,7 +9,7 @@ import { Product } from 'src/model/product.model';
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  providers: [ProductListService]
+  providers: [ProductService]
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   private subscriptionDetailProduct!: Subscription;
@@ -20,7 +20,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
-    private productListService: ProductListService
+    private productListService: ProductService
   ) { }
 
   ngOnInit(): void {
@@ -64,5 +64,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
       .subscribe((product: Product) => {
         this.products.unshift(product);
       });
+  }
+
+  updateProductListFromDetail(product: Product): void {
+    const index = this.products.findIndex(prod => prod.id === product.id);
+    if(index === -1) return ;
+
+    this.products[index] = product;
   }
 }
