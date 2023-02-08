@@ -30,7 +30,6 @@ export class ProductListService {
   }
 
   createProduct<T>(productDTO: T): Observable<Product> {
-    // return (this.http.post(ProductListService.API_URL, productDTO)) as Observable<Product>;
     return  this.http.post(ProductListService.API_URL, productDTO)
       .pipe(
         map((data: Record<string, any>) => MapperHelper.APIToProduct(data))
