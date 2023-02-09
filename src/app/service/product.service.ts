@@ -7,7 +7,7 @@ import { MapperHelper } from '../helper/Mapper.helper';
 @Injectable()
 export class ProductService {
 
-  private static API_URL = "https://young-sands-07814.herokuapp.com/api/products";
+  private static API_URL = "/api/products";
   private retryPipe = <T>() => retry<T>({
     count: 10,
     delay: 1000,
