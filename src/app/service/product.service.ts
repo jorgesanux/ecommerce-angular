@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { delay, map, Observable, retry, retryWhen, take } from 'rxjs';
 import { Product } from 'src/model/product.model';
 import { MapperHelper } from '../helper/Mapper.helper';
 
@@ -17,17 +17,13 @@ export class ProductService {
     return this.http.get<Record<string, unknown>[]>(ProductService.API_URL, {
       params: { limit, offset }
     }).pipe(
+      retry({
+        count: 10,
+        delay: 1000,
+        resetOnSuccess: true
+      }),
       map((datalist: Record<string, unknown>[]) => datalist.map(MapperHelper.APIToProduct))
     );
-  }
-
-  getAllProducts(): Observable<Product[]> {
-    return this.http.get<Record<string, unknown>[]>(ProductService.API_URL+"?limit=10&offset=1")
-      .pipe(
-        map((dataList: Record<string, unknown>[]) => {
-          return dataList.map(MapperHelper.APIToProduct);
-        })
-      );
   }
 
   getProductById<T>(id: T): Observable<Product> {
