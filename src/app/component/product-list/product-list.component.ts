@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CartService } from 'src/app/service/cart.service';
-import { ProductService } from 'src/app/service/product-list.service';
+import { ProductService } from 'src/app/service/product.service';
 import { ProductCreateDTO } from 'src/dto/product.dto';
 import { Product } from 'src/model/product.model';
 
