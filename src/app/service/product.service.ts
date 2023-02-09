@@ -8,6 +8,11 @@ import { MapperHelper } from '../helper/Mapper.helper';
 export class ProductService {
 
   private static API_URL = "https://young-sands-07814.herokuapp.com/api/products";
+  private retryPipe = <T>() => retry<T>({
+    count: 10,
+    delay: 1000,
+    resetOnSuccess: true
+  });
 
   constructor(
     private http: HttpClient
@@ -17,11 +22,7 @@ export class ProductService {
     return this.http.get<Record<string, unknown>[]>(ProductService.API_URL, {
       params: { limit, offset }
     }).pipe(
-      retry({
-        count: 10,
-        delay: 1000,
-        resetOnSuccess: true
-      }),
+      this.retryPipe(),
       map((datalist: Record<string, unknown>[]) => datalist.map(MapperHelper.APIToProduct))
     );
   }
@@ -29,6 +30,7 @@ export class ProductService {
   getProductById<T>(id: T): Observable<Product> {
     return this.http.get<Record<string, unknown>>(`${ProductService.API_URL}/${id}`)
       .pipe(
+        this.retryPipe(),
         map((data: Record<string, unknown>) => MapperHelper.APIToProduct(data))
       );
   }
@@ -36,6 +38,7 @@ export class ProductService {
   createProduct<T>(productDTO: T): Observable<Product> {
     return this.http.post(ProductService.API_URL, productDTO)
       .pipe(
+        this.retryPipe(),
         map((data: Record<string, any>) => MapperHelper.APIToProduct(data))
       );
   }
@@ -43,11 +46,15 @@ export class ProductService {
   updateProduct<T>(id: string, productDTO: T): Observable<Product>{
     return this.http.put<Record<string, unknown>>(`${ProductService.API_URL}/${id}`, productDTO)
       .pipe(
+        this.retryPipe(),
         map(MapperHelper.APIToProduct)
       );
   }
 
   deleteProduct(id: string): Observable<boolean> {
-    return this.http.delete<boolean>(`${ProductService.API_URL}/${id}`);
+    return this.http.delete<boolean>(`${ProductService.API_URL}/${id}`)
+      .pipe(
+        this.retryPipe()
+      );
   }
 }
