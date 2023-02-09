@@ -13,19 +13,27 @@ export class ProductService {
     private http: HttpClient
   ) { }
 
+  getProducts(limit = 10, offset = 0): Observable<Product[]> {
+    return this.http.get<Record<string, unknown>[]>(ProductService.API_URL, {
+      params: { limit, offset }
+    }).pipe(
+      map((datalist: Record<string, unknown>[]) => datalist.map(MapperHelper.APIToProduct))
+    );
+  }
+
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Record<string, any>[]>(ProductService.API_URL+"?limit=10&offset=1")
+    return this.http.get<Record<string, unknown>[]>(ProductService.API_URL+"?limit=10&offset=1")
       .pipe(
-        map((dataList: Record<string, any>[]) => {
+        map((dataList: Record<string, unknown>[]) => {
           return dataList.map(MapperHelper.APIToProduct);
         })
       );
   }
 
   getProductById<T>(id: T): Observable<Product> {
-    return this.http.get<Record<string, any>>(`${ProductService.API_URL}/${id}`)
+    return this.http.get<Record<string, unknown>>(`${ProductService.API_URL}/${id}`)
       .pipe(
-        map((data: Record<string, any>) => MapperHelper.APIToProduct(data))
+        map((data: Record<string, unknown>) => MapperHelper.APIToProduct(data))
       );
   }
 
@@ -37,7 +45,7 @@ export class ProductService {
   }
 
   updateProduct<T>(id: string, productDTO: T): Observable<Product>{
-    return this.http.put<Record<string, any>>(`${ProductService.API_URL}/${id}`, productDTO)
+    return this.http.put<Record<string, unknown>>(`${ProductService.API_URL}/${id}`, productDTO)
       .pipe(
         map(MapperHelper.APIToProduct)
       );

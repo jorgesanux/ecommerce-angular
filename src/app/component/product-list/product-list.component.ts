@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CartService } from 'src/app/service/cart.service';
 import { ProductService } from 'src/app/service/product.service';
 import { ProductCreateDTO } from 'src/dto/product.dto';
@@ -14,6 +14,8 @@ import { Product } from 'src/model/product.model';
 export class ProductListComponent implements OnInit, OnDestroy {
   private subscriptionDetailProduct!: Subscription;
   private subscriptionProducts!: Subscription;
+  private limit = 10;
+  private offset = 0;
 
   products: Product[] = [ ];
   productSelectedForDetail!: Product | null;
@@ -24,10 +26,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscriptionProducts = this.productListService.getAllProducts()
-      .subscribe((products: Product[]) => {
-        this.products = products;
-      });
+    this.loadMoreProducts();
   }
 
   ngOnDestroy(): void {
@@ -48,6 +47,18 @@ export class ProductListComponent implements OnInit, OnDestroy {
   closeProductDetail(): void {
     this.productSelectedForDetail = null;
     this.subscriptionDetailProduct.unsubscribe();
+  }
+
+  loadMoreProducts(limit = this.limit, offset = this.offset): void{
+    if(this.subscriptionProducts) this.subscriptionProducts.unsubscribe()
+
+    this.subscriptionProducts = this.productListService.getProducts(limit, offset)
+      .subscribe((products: Product[]) => {
+        if(products.length <= 0) return;
+
+        this.offset += this.limit;
+        this.products = this.products.concat(products);
+      });
   }
 
   createProduct(): void {

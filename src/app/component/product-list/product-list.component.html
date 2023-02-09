@@ -8,6 +8,7 @@
     (toDetail)="showProductDetail($event)"
     (toDelete)="deleteProduct($event)"
     appSelectElement></app-product>
+  <button (click)="loadMoreProducts()">Cargar más productos</button>
 </article>
 <article class="product-detail__container" *ngIf="productSelectedForDetail">
   <app-product-detail
