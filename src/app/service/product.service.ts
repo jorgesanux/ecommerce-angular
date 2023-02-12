@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, map, Observable, retry, retryWhen, take } from 'rxjs';
+import { map, Observable, retry } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Product } from 'src/model/product.model';
 import { MapperHelper } from '../helper/Mapper.helper';
 
 @Injectable()
 export class ProductService {
 
-  private static API_URL = "/api/products";
+  private static API_URL = `${environment.HOST_API_STORE}/api/products`;
   private retryPipe = <T>() => retry<T>({
     count: 10,
     delay: 1000,
