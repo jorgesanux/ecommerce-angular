@@ -1,0 +1,13 @@
+<section class="product-detail">
+  <button class="btnClose" (click)="closeDetail()">Cerrar</button>
+  <div class="detail-head">
+    <p class="title"><strong>{{ product.name }}</strong></p>
+  </div>
+  <div class="detail-body">
+    <div class="image"><img [src]="product.imageUrl" [alt]="product.name"></div>
+    <p class="price"><strong>{{ product.price | currency:'COP':'code':'2.2-4' }}</strong></p>
+    <p class="description"><strong>{{ product.description }}</strong></p>
+    <p class="provider">Proveedor <strong>{{ product.provider }}</strong></p>
+    <button (click)="updateProduct()">Modificar</button>
+  </div>
+</section>

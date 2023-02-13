@@ -8,10 +8,7 @@
   </div>
   <div class="sections-container">
     <ul class="section-wrapper">
-      <li class="nav-item"><a href="#">Todo</a></li>
-      <li class="nav-item"><a href="#">Ropa</a></li>
-      <li class="nav-item"><a href="#">Electronica</a></li>
-      <li class="nav-item"><a href="#">Supermercado</a></li>
+      <li class="nav-item" *ngFor="let category of categories"><a href="#">{{ category }}</a></li>
     </ul>
   </div>
   <div class="secondary-menu">

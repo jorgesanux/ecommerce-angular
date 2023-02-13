@@ -7,6 +7,10 @@
     <!-- <p class="price">{{ product.price.toLocaleString('es') }}</p> -->
     <p class="price">{{ product.price | currency:'COP':'code':'2.2-4' }}</p>
     <p class="provider"><strong>Proveedor:</strong> {{ product.provider | titlecase }}</p>
+  </section>
+  <section class="card-footer">
     <button (click)="addToCart()">Agregar al carrito</button>
+    <button (click)="showDetail()">Ver detalle</button>
+    <button (click)="deleteProduct()">Eliminar</button>
   </section>
 </div>

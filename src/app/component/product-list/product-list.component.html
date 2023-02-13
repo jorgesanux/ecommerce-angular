@@ -1,4 +1,19 @@
 <article class="products-container">
-  <app-cart></app-cart>
-  <app-product *ngFor="let product of products; index as i" [product]="product" (toCart)="addProductToCart($event)" appSelectElement></app-product>
+  <!-- <app-cart></app-cart> -->
+  <button (click)="createProduct()">Crear producto</button>
+  <app-product
+    *ngFor="let product of products"
+    [product]="product"
+    (toCart)="addProductToCart($event)"
+    (toDetail)="showProductDetail($event)"
+    (toDelete)="deleteProduct($event)"
+    appSelectElement></app-product>
+  <button (click)="loadMoreProducts()">Cargar más productos</button>
+</article>
+<article class="product-detail__container" *ngIf="productSelectedForDetail">
+  <app-product-detail
+    [product]="productSelectedForDetail"
+    (toUpdate)="updateProductListFromDetail($event)"
+    (toClose)="closeProductDetail()">
+  </app-product-detail>
 </article>
