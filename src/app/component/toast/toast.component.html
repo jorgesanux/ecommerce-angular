@@ -1,0 +1,10 @@
+<div [className]="'toast border '+ toast.type" >
+  <!-- <div class="icon"></div> -->
+  <p class="text">{{ toast.text }}</p>
+  <button class="button-close"
+    (click)="close()"
+    [ngClass]="{
+      'hide': !toast.options?.showCloseButton
+    }"
+  >X</button>
+</div>

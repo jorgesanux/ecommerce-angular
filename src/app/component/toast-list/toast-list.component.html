@@ -1,0 +1,7 @@
+<div class="toast-list" >
+  <app-toast
+    *ngFor="let toast of toastList"
+    [toast]="toast"
+    (toClose)="closeNotification($event)"
+  ></app-toast>
+</div>

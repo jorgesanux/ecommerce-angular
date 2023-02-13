@@ -14,6 +14,8 @@ import { SnakeCasePipe } from './pipe/snake-case.pipe';
 import { SelectElementDirective } from './directive/select-element.directive';
 import { CartService } from './service/cart.service';
 import { ProductDetailComponent } from './component/product-detail/product-detail.component';
+import { ToastComponent } from './component/toast/toast.component';
+import { ToastListComponent } from './component/toast-list/toast-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ProductDetailComponent } from './component/product-detail/product-detai
     ReversePipe,
     SnakeCasePipe,
     SelectElementDirective,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ToastComponent,
+    ToastListComponent
   ],
   imports: [
     BrowserModule,
