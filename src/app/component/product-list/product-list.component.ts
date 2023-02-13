@@ -33,6 +33,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.subscriptionProducts.unsubscribe();
   }
 
+  errorHandler(error: unknown) {
+    if(error instanceof Error){
+      console.error(error.message);
+    }
+  }
+
   addProductToCart(product: Product): void {
     this.cartService.addProduct(product);
   }
@@ -53,11 +59,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
     if(this.subscriptionProducts) this.subscriptionProducts.unsubscribe()
 
     this.subscriptionProducts = this.productListService.getProducts(limit, offset)
-      .subscribe((products: Product[]) => {
-        if(products.length <= 0) return;
+      .subscribe({
+        next: (products: Product[]) => {
+          if(products.length <= 0) return;
 
-        this.offset += this.limit;
-        this.products = this.products.concat(products);
+          this.offset += this.limit;
+          this.products = this.products.concat(products);
+        },
+        error: this.errorHandler
       });
   }
 
@@ -72,8 +81,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
       title: "Productos random"
     };
     this.productListService.createProduct(newProduct)
-      .subscribe((product: Product) => {
-        this.products.unshift(product);
+      .subscribe({
+        next: (product: Product) => {
+          this.products.unshift(product);
+        },
+        error: this.errorHandler
       });
   }
 
