@@ -24,9 +24,16 @@ export class ProductDetailComponent {
   updateProduct(): void {
     this.productService.updateProduct<ProductUpdateDTO>(this.product.id, {
       title: `${this.product.name} ${crypto.randomUUID().substring(0,4)}`
-    }).subscribe((product: Product)=>{
-      this.product = product;
-      this.toUpdate.emit(this.product);
+    }).subscribe({
+      next: (product: Product)=>{
+        this.product = product;
+        this.toUpdate.emit(this.product);
+      },
+      error: (error: unknown) => {
+        if(error instanceof Error){
+          console.error(error.message);
+        }
+      }
     });
   }
 }

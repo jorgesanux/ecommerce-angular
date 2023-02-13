@@ -27,9 +27,16 @@ export class ProductComponent {
 
   deleteProduct(): void {
     this.productService.deleteProduct(this.product.id)
-      .subscribe((isDeleted: boolean) => {
-        if(!isDeleted) return;
-        this.toDelete.emit(this.product);
+      .subscribe({
+        next: (isDeleted: boolean) => {
+          if(!isDeleted) return;
+          this.toDelete.emit(this.product);
+        },
+        error: (error: unknown) => {
+          if(error instanceof Error){
+            console.error(error.message);
+          }
+        }
       })
   }
 }
