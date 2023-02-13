@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ProductService } from 'src/app/service/product.service';
+import { ToastListService } from 'src/app/service/toast-list.service';
 import { Product } from 'src/model/product.model';
 
 @Component({
@@ -14,7 +15,8 @@ export class ProductComponent {
   @Output() toDelete: EventEmitter<Product> = new EventEmitter();
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private toastListService: ToastListService
   ){ }
 
   addToCart(): void {
@@ -35,6 +37,7 @@ export class ProductComponent {
         error: (error: unknown) => {
           if(error instanceof Error){
             console.error(error.message);
+            this.toastListService.error(error.message);
           }
         }
       })

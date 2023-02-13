@@ -2,8 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CartService } from 'src/app/service/cart.service';
 import { ProductService } from 'src/app/service/product.service';
+import { ToastListService } from 'src/app/service/toast-list.service';
 import { ProductCreateDTO } from 'src/dto/product.dto';
 import { Product } from 'src/model/product.model';
+import { ToastType } from 'src/model/toast.model';
 
 @Component({
   selector: 'app-product-list',
@@ -22,7 +24,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
-    private productListService: ProductService
+    private productListService: ProductService,
+    private toastListService: ToastListService
   ) { }
 
   ngOnInit(): void {
@@ -36,11 +39,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
   errorHandler(error: unknown) {
     if(error instanceof Error){
       console.error(error.message);
+      this.toastListService.error(error.message);
     }
   }
 
   addProductToCart(product: Product): void {
     this.cartService.addProduct(product);
+    this.toastListService.info("Producto agregado al carrito");
   }
 
   showProductDetail(id: string): void {
@@ -56,7 +61,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   loadMoreProducts(limit = this.limit, offset = this.offset): void{
-    if(this.subscriptionProducts) this.subscriptionProducts.unsubscribe()
+    if(this.subscriptionProducts) this.subscriptionProducts.unsubscribe();
+    this.toastListService.info("Cargando productos...");
 
     this.subscriptionProducts = this.productListService.getProducts(limit, offset)
       .subscribe({
@@ -66,7 +72,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
           this.offset += this.limit;
           this.products = this.products.concat(products);
         },
-        error: this.errorHandler
+        error: this.errorHandler.bind(this)
       });
   }
 
@@ -84,8 +90,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (product: Product) => {
           this.products.unshift(product);
+          this.toastListService.success("Producto creado");
         },
-        error: this.errorHandler
+        error: this.errorHandler.bind(this)
       });
   }
 
@@ -94,6 +101,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     if(index === -1) return ;
 
     this.products[index] = product;
+    this.toastListService.success("Producto actualizado");
   }
 
   deleteProduct(product: Product): void {
@@ -101,5 +109,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     if(index === -1) return ;
 
     this.products.splice(index, 1);
+
+    this.toastListService.success("Producto eliminado");
   }
 }

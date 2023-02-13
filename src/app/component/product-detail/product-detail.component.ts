@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ProductService } from 'src/app/service/product.service';
+import { ToastListService } from 'src/app/service/toast-list.service';
 import { ProductUpdateDTO } from 'src/dto/product.dto';
 import { Product } from 'src/model/product.model';
 
@@ -14,7 +15,8 @@ export class ProductDetailComponent {
   @Output() toUpdate: EventEmitter<Product> = new EventEmitter();
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private toastListService: ToastListService
   ){ }
 
   closeDetail(): void {
@@ -32,6 +34,7 @@ export class ProductDetailComponent {
       error: (error: unknown) => {
         if(error instanceof Error){
           console.error(error.message);
+          this.toastListService.error(error.message);
         }
       }
     });
