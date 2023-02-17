@@ -16,6 +16,7 @@ import { CartService } from './service/cart.service';
 import { ProductDetailComponent } from './component/product-detail/product-detail.component';
 import { ToastComponent } from './component/toast/toast.component';
 import { ToastListComponent } from './component/toast-list/toast-list.component';
+import { LoginComponent } from './component/login/login.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ToastListComponent } from './component/toast-list/toast-list.component'
     SelectElementDirective,
     ProductDetailComponent,
     ToastComponent,
-    ToastListComponent
+    ToastListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

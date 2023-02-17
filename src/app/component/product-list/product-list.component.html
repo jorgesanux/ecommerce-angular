@@ -1,6 +1,7 @@
 <article class="products-container">
   <!-- <app-cart></app-cart> -->
   <button (click)="createProduct()">Crear producto</button>
+  <app-login></app-login>
   <app-product
     *ngFor="let product of products"
     [product]="product"

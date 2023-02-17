@@ -11,4 +11,8 @@ export class MapperHelper {
       description: rawData["description"]
     }
   }
+
+  static APIToTokenString(rawData: Record<string, any>): string {
+    return rawData["access_token"];
+  }
 }
