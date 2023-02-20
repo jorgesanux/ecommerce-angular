@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class NavBarService {
-
   updateClock(): Observable<Date> {
     return new Observable((observer) => {
       const timer = setInterval(() => {

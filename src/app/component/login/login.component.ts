@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
 import { ToastListService } from 'src/app/service/toast-list.service';
-import { UserService } from 'src/app/service/user.service';
 import { User } from 'src/model/user.model';
 
 @Component({
@@ -9,13 +9,21 @@ import { User } from 'src/model/user.model';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  profile!: User;
+
+
+  private tokenSubscription!: Subscription;
 
   constructor(
     // private userService: UserService,
     private authService: AuthService,
     private toastService: ToastListService
-  ){}
+  ) { }
+  ngOnInit(): void {
+    this.tokenSubscription = this.authService.token$
+      .subscribe((token: string | undefined) => token && sessionStorage.setItem("token", token));
+  }
 
 
   login(): void {
@@ -29,13 +37,20 @@ export class LoginComponent {
 
   getProfile(): void {
     const token: string | null = sessionStorage.getItem("token");
-    if(token === null){
+    if (token === null) {
       this.toastService.warning("No se encuentra autenticado, por favor iniciar sesión");
-      return ;
+      return;
     }
     this.authService.getProfile(token)
       .subscribe((user: User) => {
         console.log(user);
       })
+  }
+
+  loginAndGetProfile(): void {
+    this.authService.loginAndGetProfile({
+      email: "john@mail.com",
+      password: "changeme"
+    });
   }
 }

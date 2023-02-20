@@ -12,7 +12,7 @@
     </ul>
   </div>
   <div class="secondary-menu">
-    <p class="email">Jorge</p>
+    <p class="email" *ngIf="profile">{{ profile.email }}</p>
     <p class="current-date">{{ currentDate | date:'yyyy/MM/dd hh:mm:ss' }}</p>
     <div class="cart">
       <!-- <img src="" alt="Carrito"> -->
